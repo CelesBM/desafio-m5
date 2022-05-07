@@ -472,6 +472,10 @@ var _welcome = require("./pages/welcome");
 var _instructions = require("./pages/instructions");
 const routes = [
     {
+        path: /\//,
+        component: _welcome.initWelcomePage
+    },
+    {
         path: /\/welcome/,
         component: _welcome.initWelcomePage
     },
@@ -521,8 +525,8 @@ var _router = require("../../router");
 function initWelcomePage(params) {
     const div = document.createElement("div");
     const style = document.createElement("style");
-    style.innerHTML = `\n    .title{\n        font-size: 80px;\n        color: #009048;\n    }\n    `;
-    div.innerHTML = `\n    <h1 class="title">Piedra Papel ó Tijera</h1>\n    `;
+    style.innerHTML = `\n    .title{\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 80px;\n        color: #009048;\n        text-align: center;\n    }\n    @media (min-width: 769px) {\n        .title {\n         \n        }}\n\n    .button{\n        padding: 19px 92px;\n        margin-left: 20px;\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 40px;\n        color: #D8FCFC;\n        background-color: #006CFC;\n        border: 10px solid #001997;\n    }\n    @media (min-width: 769px) {\n        .button {\n         \n        }}\n    `;
+    div.innerHTML = `\n    <div class="container">\n\n    <h1 class="title">Piedra Papel ó Tijera</h1>\n    <button-start class="button">Empezar</button-start>\n    \n    <div class="container-hands">\n\n    <div class="hand"><hand-move hand="paper"></hand-move></div>\n    <div class="hand"><hand-move hand="rock"></hand-move></div>\n    <div class="hand"><hand-move hand="scissor"></hand-move></div>\n    \n    </div>\n\n    </div>\n    `;
     div.appendChild(style);
     return div;
 }

@@ -1,4 +1,4 @@
-(function Start(){
+export function Start(){
     class ButtonStart extends HTMLElement {
         constructor() {
             super();
@@ -19,4 +19,4 @@
         }
     }
     customElements.define("button-start", ButtonStart);
-})();
+};

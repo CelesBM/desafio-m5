@@ -3,6 +3,10 @@ import { initInstructionsPage } from "./pages/instructions";
 
 const routes = [
     {
+        path: /\//,
+        component: initWelcomePage,
+    },
+    {
         path: /\/welcome/,
         component: initWelcomePage,
     },
