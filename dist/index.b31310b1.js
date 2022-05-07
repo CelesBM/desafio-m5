@@ -458,12 +458,14 @@ function hmrAcceptRun(bundle, id) {
 var _router = require("./router");
 var _instructions = require("./pages/instructions");
 var _welcome = require("./pages/welcome");
+var _buttonStart = require("./components/button-start");
+var _hands = require("./components/move/hands");
 (function() {
     const root = document.querySelector(".root");
     _router.initRouter(root);
 })();
 
-},{"./router":"b2iia","./pages/instructions":"iaM8p","./pages/welcome":"bFh5y"}],"b2iia":[function(require,module,exports) {
+},{"./router":"b2iia","./pages/instructions":"iaM8p","./pages/welcome":"bFh5y","./components/button-start":"9F0Ma","./components/move/hands":"29pjG"}],"b2iia":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initRouter", ()=>initRouter
@@ -575,6 +577,106 @@ function initInstructionsPage() {
     return div;
 }
 
-},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire9acc")
+},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"9F0Ma":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Start", ()=>Start
+);
+function Start() {
+    class ButtonStart extends HTMLElement {
+        constructor(){
+            super();
+            this.render();
+        }
+        render() {
+            const shadow = this.attachShadow({
+                mode: "open"
+            });
+            const style = document.createElement("style");
+            const content = this.textContent;
+            style.innerHTML = `\n            .button-start{\n                background-color: #006CFC;\n            }\n            `;
+            shadow.appendChild(style);
+        }
+    }
+    customElements.define("button-start", ButtonStart);
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"29pjG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initHands", ()=>initHands
+);
+const hands = {
+    rock: require("url:../../images/piedra.png"),
+    paper: require("url:../../images/papel.png"),
+    scissor: require("url:../../images/tijeras.png")
+};
+function initHands() {
+    class HandMove extends HTMLElement {
+        constructor(){
+            super();
+            this.shadow = this.attachShadow({
+                mode: "open"
+            });
+            this.render();
+        }
+        render() {
+            const div = document.createElement("div");
+            const style = document.createElement("style");
+            const hand = this.getAttribute("hand");
+            style.innerHTML = `\n            .hand{\n                height: 128px;\n                width: 56px;\n            }\n            `;
+            div.innerHTML = `\n            <img class="hand" src=${hands[hand]}></img>;\n            `;
+            this.shadow.appendChild(style);
+            this.shadow.appendChild(div);
+        }
+    }
+    customElements.define("hand-move", HandMove);
+}
+
+},{"url:../../images/piedra.png":"jQlP3","url:../../images/papel.png":"8lgLG","url:../../images/tijeras.png":"klX5l","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"jQlP3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra.a3b6d156.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"8lgLG":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "papel.135c8552.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"klX5l":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijeras.599651f3.png";
+
+},{"./helpers/bundle-url":"8YnfL"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire9acc")
 
 //# sourceMappingURL=index.b31310b1.js.map
