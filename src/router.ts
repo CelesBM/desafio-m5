@@ -1,5 +1,7 @@
 import { initWelcomePage } from "./pages/welcome";
 import { initInstructionsPage } from "./pages/instructions";
+import { initGame } from "./pages/game";
+import { initResults } from "./pages/results";
 
 const routes = [
     {
@@ -13,7 +15,16 @@ const routes = [
     {
         path: /\/instructions/,
         component: initInstructionsPage,
-    }
+    },
+    {
+        path: /\/game/,
+        component: initGame,
+    },
+    {
+        path: /\/results/,
+        component: initResults,
+    },
+
 ];
 
 const BASE_PATH = "/desafio-m5";
@@ -49,14 +60,4 @@ export function initRouter(container: Element){
     }
 
     handleRoute(location.pathname);
-
-//   if(location.pathname == "/"){
-//		goTo("/desafio-m5/welcome");
-//	} else{
-//		handleRoute(location.pathname);
-//	}
-
-//	window.onpopstate = function () {
-//		handleRoute(location.pathname);
-//	};
 }

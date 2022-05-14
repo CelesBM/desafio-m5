@@ -456,8 +456,10 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"4aleK":[function(require,module,exports) {
 var _router = require("./router");
-var _instructions = require("./pages/instructions");
 var _welcome = require("./pages/welcome");
+var _instructions = require("./pages/instructions");
+var _game = require("./pages/game");
+var _results = require("./pages/results");
 var _buttonStart = require("./components/button-start");
 var _hands = require("./components/move/hands");
 (function() {
@@ -465,13 +467,15 @@ var _hands = require("./components/move/hands");
     _router.initRouter(root);
 })();
 
-},{"./router":"b2iia","./pages/instructions":"iaM8p","./pages/welcome":"bFh5y","./components/button-start":"9F0Ma","./components/move/hands":"29pjG"}],"b2iia":[function(require,module,exports) {
+},{"./router":"b2iia","./pages/welcome":"bFh5y","./pages/instructions":"iaM8p","./pages/game":"d7f6n","./pages/results":"8GXDd","./components/button-start":"9F0Ma","./components/move/hands":"29pjG"}],"b2iia":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initRouter", ()=>initRouter
 );
 var _welcome = require("./pages/welcome");
 var _instructions = require("./pages/instructions");
+var _game = require("./pages/game");
+var _results = require("./pages/results");
 const routes = [
     {
         path: /\//,
@@ -484,7 +488,15 @@ const routes = [
     {
         path: /\/instructions/,
         component: _instructions.initInstructionsPage
-    }
+    },
+    {
+        path: /\/game/,
+        component: _game.initGame
+    },
+    {
+        path: /\/results/,
+        component: _results.initResults
+    }, 
 ];
 const BASE_PATH = "/desafio-m5";
 function isGithubPages() {
@@ -508,17 +520,9 @@ function initRouter(container) {
         }
     }
     handleRoute(location.pathname);
-//   if(location.pathname == "/"){
-//		goTo("/desafio-m5/welcome");
-//	} else{
-//		handleRoute(location.pathname);
-//	}
-//	window.onpopstate = function () {
-//		handleRoute(location.pathname);
-//	};
 }
 
-},{"./pages/welcome":"bFh5y","./pages/instructions":"iaM8p","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"bFh5y":[function(require,module,exports) {
+},{"./pages/welcome":"bFh5y","./pages/instructions":"iaM8p","./pages/game":"d7f6n","./pages/results":"8GXDd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"bFh5y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initWelcomePage", ()=>initWelcomePage
@@ -527,8 +531,12 @@ var _router = require("../../router");
 function initWelcomePage(params) {
     const div = document.createElement("div");
     const style = document.createElement("style");
-    style.innerHTML = `\n    .title{\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 80px;\n        color: #009048;\n        text-align: center;\n    }\n    @media (min-width: 769px) {\n        .title {\n         \n        }}\n\n    .button{\n        padding: 19px 92px;\n        margin-left: 20px;\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 40px;\n        color: #D8FCFC;\n        background-color: #006CFC;\n        border: 10px solid #001997;\n    }\n    @media (min-width: 769px) {\n        .button {\n         \n        }}\n    `;
+    style.innerHTML = `\n    .title{\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 80px;\n        color: #009048;\n        text-align: center;\n    }\n\n    @media (min-width: 769px){\n    .title{\n         margin-top: 10%;\n         margin-bottom: 5%;\n    }}\n\n    @media (min-width: 769px) {\n    .button{\n        margin-left: 37%;\n    }}\n\n    .container-hands{\n        display: flex;\n        justify-content: space-between;\n        position: relative;\n        top: 100px;\n        margin: 0px 60px\n    }\n\n    @media (min-width: 769px) {\n    .container-hands{        \n        top: 190px;\n        margin: 0px 600px\n    }}\n    `;
     div.innerHTML = `\n    <div class="container">\n\n    <h1 class="title">Piedra Papel ó Tijera</h1>\n    <button-start class="button">Empezar</button-start>\n    \n    <div class="container-hands">\n\n    <div class="hand"><hand-move hand="paper"></hand-move></div>\n    <div class="hand"><hand-move hand="rock"></hand-move></div>\n    <div class="hand"><hand-move hand="scissor"></hand-move></div>\n    \n    </div>\n\n    </div>\n    `;
+    const buttonEl = div.querySelector(".button");
+    buttonEl.addEventListener('click', ()=>{
+        params.goTo("/instructions");
+    });
     div.appendChild(style);
     return div;
 }
@@ -571,70 +579,248 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initInstructionsPage", ()=>initInstructionsPage
 );
 var _router = require("../../router");
-function initInstructionsPage() {
+function initInstructionsPage(params) {
     const div = document.createElement("div");
-    div.innerHTML = `\n    <p>Presioná jugar\n    y elegí: piedra, papel o tijera antes de que pasen los 3 segundos.</p>\n    `;
+    const style = document.createElement("style");
+    style.innerHTML = `\n    .instructions{\n        font-family: 'Luckiest Guy', cursive;\n        font-size: 40px;\n        color: #000000;\n        text-align: center;\n        padding: 15px 31px 20px 31px;\n    }\n    @media (min-width: 769px) {\n        .instructions {\n         margin-top: 10%;\n         margin-bottom: 5%;\n         padding: 80px 520px 80px 520px;\n         margin: 0 auto;\n        }}\n    .button{\n        margin-left: 18px;\n        }\n   \n    @media (min-width: 769px) {\n        .button {\n        margin-left: 38%;\n        }}\n\n    .container-hands{\n        display: flex;\n        justify-content: space-between;\n        position: relative;\n        top: 100px;\n        margin: 0px 60px\n        }\n    \n    @media (min-width: 769px) {\n    .container-hands{        \n        top: 190px;\n        margin: 0px 600px\n        }}\n    `;
+    div.innerHTML = `\n    <div class="container">\n\n    <p class="instructions">Presioná jugar y elegí: piedra, papel o tijera antes de que pasen los 3 segundos.</p>\n    <button-start class="button">¡Jugar!</button-start>\n\n    <div class="container-hands">\n\n    <div class="hand"><hand-move hand="paper"></hand-move></div>\n    <div class="hand"><hand-move hand="rock"></hand-move></div>\n    <div class="hand"><hand-move hand="scissor"></hand-move></div>\n\n    </div>\n\n    </div>\n    `;
+    const buttonEl = div.querySelector(".button");
+    buttonEl.addEventListener('click', ()=>{
+        params.goTo("/game");
+    });
+    div.appendChild(style);
     return div;
 }
 
-},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"9F0Ma":[function(require,module,exports) {
+},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"d7f6n":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Start", ()=>Start
+parcelHelpers.export(exports, "initGame", ()=>initGame
 );
-function Start() {
-    class ButtonStart extends HTMLElement {
-        constructor(){
-            super();
-            this.render();
-        }
-        render() {
-            const shadow = this.attachShadow({
-                mode: "open"
-            });
-            const style = document.createElement("style");
-            const content = this.textContent;
-            style.innerHTML = `\n            .button-start{\n                background-color: #006CFC;\n            }\n            `;
-            shadow.appendChild(style);
+var _router = require("../../router");
+var _state = require("../../state");
+const options = [
+    "piedra",
+    "papel",
+    "tijera"
+];
+const randomOption = Math.floor(Math.random() * options.length);
+var botRandomPlay = options[randomOption];
+function initGame(params) {
+    const div = document.createElement("div");
+    const style = document.createElement("style");
+    var counter = 3;
+    const countdown = setInterval(()=>{
+        counter--;
+        const counterEl = div.querySelector(".countdown");
+        counterEl.textContent = String(counter);
+        if (counter < 1) clearInterval(countdown);
+    }, 1000);
+    style.innerHTML = `\n    .container{\n		height: 100vh;\n		display: flex;\n		flex-direction: column;\n		justify-content: space-between;\n		align-items: center;\n		overflow-y: hidden;\n    }\n\n    .bot-hands{\n	   display: none;\n	   transform: rotate(180deg);\n	   position: relative;\n	   top: -20px;\n    }\n\n    .countdown{\n		font-family: 'Luckiest Guy', cursive;  \n		font-size: 150px;\n		margin-top: 150px;\n    }\n\n	@media (min-width: 769px) {\n		.countdown{\n			font-size: 250px;\n		}}\n\n    .container-hands{\n		display: flex;\n		position: relative;\n		top: 20px;\n    }\n\n	.bot-paper, .bot-rock, .bot-scissor{\n		padding: 0px 25px;	\n	}\n\n	@media (min-width: 769px) {\n		.bot-paper, .bot-rock, .bot-scissor{\n			padding: 0 150px;\n		}}\n\n    .handview{\n	    padding: 0px 25px;\n		opacity: 0.5;\n    }\n\n	@media (min-width: 769px) {\n		.handview{\n			padding: 0 150px;\n		}}\n\n	.hand-view:hover{\n		top: 0px;\n		opacity: 1;\n		display: inherit;\n		transform: translateY(-30px);\n		transition: all 0.5s;\n	  }\n\n	  .selected {\n		position: absolut;\n		opacity: 1;\n	  }\n    `;
+    div.innerHTML = `\n	<div class="container">\n\n    <div class="bot-hands">\n    	<hand-move hand="paper" class="bot-paper"></hand-move>\n   		<hand-move hand="rock" class="bot-rock"></hand-move>\n    	<hand-move hand="scissor" class="bot-scissor"></hand-move>\n    </div>\n\n	<div>\n    	<div class="countdown">${counter}</div>\n	</div>\n\n    <div class="container-hands">\n		<hand-move hand="paper" class="handview paper"></hand-move>\n   		<hand-move hand="rock" class="handview rock"></hand-move>\n    	<hand-move hand="scissor" class="handview scissor"></hand-move>\n    </div>\n\n    </div>\n    `;
+    const countdownEl = div.querySelector(".countdown");
+    const botHandsEl = div.querySelector(".bot-hands");
+    const botPaper = div.querySelector(".bot-paper");
+    const botRock = div.querySelector(".bot-rock");
+    const botScissor = div.querySelector(".bot-scissor");
+    const handsCont = div.querySelector(".container-hands");
+    const paperEl = div.querySelector(".paper");
+    const rockEl = div.querySelector(".rock");
+    const scissorEl = div.querySelector(".scissor");
+    function botGame(params1) {
+        if (params1 == "piedra") {
+            botRock.style.display = "inherit";
+            botHandsEl.style.display = "inherit";
+            countdownEl.style.display = "none";
+        } else if (params1 == "papel") {
+            botPaper.style.display = "inherit";
+            botHandsEl.style.display = "inherit";
+            countdownEl.style.display = "none";
+        } else if (params1 == "tijera") {
+            botScissor.style.display = " inherit";
+            botHandsEl.style.display = "inherit";
+            countdownEl.style.display = "none";
         }
     }
-    customElements.define("button-start", ButtonStart);
+    const botMove = ()=>{
+        new botGame(botRandomPlay);
+        return botMove;
+    };
+    console.log(botMove);
+    function playGame(hand) {
+        if (hand == "rock") {
+            paperEl.style.display = "none";
+            scissorEl.style.display = "none";
+            handsCont.style.justifyContent = "center";
+            rockEl.classList.remove(".handview");
+            rockEl.classList.add("selected");
+            botGame(botRandomPlay);
+        } else if (hand == "paper") {
+            rockEl.style.display = "none";
+            scissorEl.style.display = "none";
+            handsCont.style.justifyContent = "center";
+            paperEl.classList.remove(".handview");
+            paperEl.classList.add("selected");
+            botGame(botRandomPlay);
+        } else if (hand == "scissor") {
+            paperEl.style.display = "none";
+            rockEl.style.display = "none";
+            handsCont.style.justifyContent = "center";
+            scissorEl.classList.remove(".handview");
+            scissorEl.classList.add("selected");
+            botGame(botRandomPlay);
+        }
+    }
+    for (const h of handsCont.children)h.addEventListener("click", ()=>{
+        const select = h.getAttribute("hand");
+        clearInterval(countdown);
+        if (select == "rock") {
+            _state.state.setMove("piedra");
+            setTimeout(()=>{
+                playGame("rock");
+            }, 3000);
+        } else if (select == "paper") {
+            _state.state.setMove("papel");
+            setTimeout(()=>{
+                playGame("paper");
+            }, 1000);
+        } else if (select == "scissor") {
+            _state.state.setMove("tijera");
+            setTimeout(()=>{
+                playGame("scissor");
+            }, 1000);
+        }
+    });
+    const currentState = _state.state.getState().currentGame;
+    setTimeout(()=>{
+        if (currentState.myPlay == "") params.goTo("/instructions/");
+        else params.goTo("/results/");
+    }, 5000);
+    div.appendChild(style);
+    return div;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"29pjG":[function(require,module,exports) {
+},{"../../router":"b2iia","../../state":"28XHA","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"28XHA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initHands", ()=>initHands
+parcelHelpers.export(exports, "state", ()=>state
 );
-const hands = {
-    rock: require("url:../../images/piedra.png"),
-    paper: require("url:../../images/papel.png"),
-    scissor: require("url:../../images/tijeras.png")
+const state = {
+    data: {
+        currentGame: {
+            myPlay: "",
+            botPlay: ""
+        },
+        history: {
+            myScore: 0,
+            botScore: 0
+        }
+    },
+    listeners: [],
+    getStorage () {
+        const localData = JSON.parse(localStorage.getItem("data"));
+        if (localStorage.getItem("data")) return this.data.history = localData;
+        console.log(localData);
+    },
+    getState () {
+        return this.data;
+    },
+    setState (newState) {
+        this.data = newState;
+        for (const cb of this.listeners)cb();
+        this.savedData();
+    },
+    subscribe (callback) {
+        this.listeners.push(callback);
+    },
+    setMove (move) {
+        const currentState = this.getState();
+        currentState.currentGame.myPlay = move;
+        this.setScore();
+    },
+    setScore () {
+        const currentState = this.getState();
+        const myPlay = currentState.currentGame.myPlay;
+        const botPlay = currentState.currentGame.botPlay;
+        const currentWhoWins = this.whoWins(myPlay, botPlay);
+        const myScore = currentState.history.myScore;
+        const botScore = currentState.history.botScore;
+        if (currentWhoWins == "win") return this.setState({
+            ...currentState,
+            history: {
+                myScore: myScore + 1,
+                botScore: botScore
+            }
+        });
+        else if (currentWhoWins == "lose") return this.setState({
+            ...currentState,
+            history: {
+                myScore: myScore,
+                botScore: botScore + 1
+            }
+        });
+    },
+    whoWins (myPlay, botPlay) {
+        const winRock = myPlay == "piedra" && botPlay == "tijera";
+        const winPaper = myPlay == "papel" && botPlay == "piedra";
+        const winScissor = myPlay == "tijera" && botPlay == "papel";
+        const win = [
+            winRock,
+            winPaper,
+            winScissor
+        ].includes(true);
+        const loseRock = myPlay == "piedra" && botPlay == "papel";
+        const losePaper = myPlay == "papel" && botPlay == "tijera";
+        const loseScissor = myPlay == "tijera" && botPlay == "piedra";
+        const lose = [
+            loseRock,
+            losePaper,
+            loseScissor
+        ].includes(true);
+        if (win == true) return "win";
+        else if (lose == true) return "lose";
+        else return "tie";
+    },
+    savedData () {
+        const currentHistory = this.getState().history;
+        localStorage.setItem("data", JSON.stringify(currentHistory));
+    }
 };
-function initHands() {
-    class HandMove extends HTMLElement {
-        constructor(){
-            super();
-            this.shadow = this.attachShadow({
-                mode: "open"
-            });
-            this.render();
-        }
-        render() {
-            const div = document.createElement("div");
-            const style = document.createElement("style");
-            const hand = this.getAttribute("hand");
-            style.innerHTML = `\n            .hand{\n                height: 128px;\n                width: 56px;\n            }\n            `;
-            div.innerHTML = `\n            <img class="hand" src=${hands[hand]}></img>;\n            `;
-            this.shadow.appendChild(style);
-            this.shadow.appendChild(div);
-        }
-    }
-    customElements.define("hand-move", HandMove);
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"8GXDd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initResults", ()=>initResults
+);
+var _router = require("../../router");
+var _state = require("../../state");
+const results = {
+    win: require("url:../../images/ganaste.png"),
+    lose: require("url:../../images/perdiste.png"),
+    tie: require("url:../../images/empate.png")
+};
+function initResults(params) {
+    const div = document.createElement("div");
+    const style = document.createElement("style");
+    var myScore = _state.state.data.history.myScore;
+    var botScore = _state.state.data.history.botScore;
+    style.innerHTML = `\n  `;
+    div.innerHTML = `\n  <div class="container">\n\n    <div class="win">\n      <img class="win-img" src=${results.win}></img>\n    </div>\n\n    <div class="lose">\n      <img class="lose-img" src=${results.lose}></img>\n    </div>\n\n    <div class="tie">\n      <img class="tie-img" src=${results.tie}></img>\n    </div>\n\n    <div class="score">\n      <h2 class="score-title">Score</h2>\n      <h3 class="score-participant">Vos: ${myScore}</h3>\n      <h3 class="score-participant">Máquina: ${botScore}</h3>\n    </div>\n\n    <div class="go-back">\n      <button-start class="go-back-button">Volver a jugar</button-start>\n    </div>\n\n  </div>\n  `;
+    const goBack = div.querySelector(".go-back");
+    const goStart = div.querySelector(".go-start");
+    goBack.addEventListener("click", ()=>{
+        params.goTo("/game/");
+        location.reload();
+    });
+    goStart.addEventListener("click", ()=>{
+        params.goTo("/welcome/");
+    });
+    div.appendChild(style);
+    return div;
 }
 
-},{"url:../../images/piedra.png":"jQlP3","url:../../images/papel.png":"8lgLG","url:../../images/tijeras.png":"klX5l","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"jQlP3":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra.a3b6d156.png";
+},{"../../router":"b2iia","../../state":"28XHA","url:../../images/ganaste.png":"bRYxE","url:../../images/perdiste.png":"l5pY4","url:../../images/empate.png":"2LlX9","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"bRYxE":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "ganaste.8752fa2a.png";
 
 },{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
 "use strict";
@@ -671,7 +857,63 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"8lgLG":[function(require,module,exports) {
+},{}],"l5pY4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "perdiste.711bca37.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"2LlX9":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "empate.05dba055.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"9F0Ma":[function(require,module,exports) {
+class ButtonStart extends HTMLElement {
+    constructor(){
+        super();
+        this.render();
+    }
+    render() {
+        const shadow = this.attachShadow({
+            mode: "open"
+        });
+        const style = document.createElement("style");
+        const button = document.createElement("button");
+        button.className = "root";
+        style.innerHTML = `\n        .root{\n            font-family: 'Luckiest Guy', cursive;\n            font-size: 40px;\n            color: #D8FCFC;\n            background-color: #006CFC;\n            border: 10px solid #001997;\n            padding: 19px 87px;\n            margin-left: 25px;\n        }\n        `;
+        button.textContent = this.textContent;
+        shadow.appendChild(button);
+        shadow.appendChild(style);
+    }
+}
+customElements.define("button-start", ButtonStart);
+
+},{}],"29pjG":[function(require,module,exports) {
+const hands = {
+    rock: require("url:../../images/piedra.png"),
+    paper: require("url:../../images/papel.png"),
+    scissor: require("url:../../images/tijeras.png")
+};
+class HandMove extends HTMLElement {
+    constructor(){
+        super();
+        this.shadow = this.attachShadow({
+            mode: "open"
+        });
+        this.render();
+    }
+    render() {
+        const div = document.createElement("div");
+        const style = document.createElement("style");
+        const hand = this.getAttribute("hand");
+        style.innerHTML = `\n            .hand{\n                height: 138px;\n                width: 66px;\n            }\n            `;
+        div.innerHTML = `\n            <img class="hand" src=${hands[hand]}></img>;\n            `;
+        this.shadow.appendChild(style);
+        this.shadow.appendChild(div);
+    }
+}
+customElements.define("hand-move", HandMove);
+
+},{"url:../../images/piedra.png":"jQlP3","url:../../images/papel.png":"8lgLG","url:../../images/tijeras.png":"klX5l"}],"jQlP3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra.a3b6d156.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"8lgLG":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "papel.135c8552.png";
 
 },{"./helpers/bundle-url":"8YnfL"}],"klX5l":[function(require,module,exports) {

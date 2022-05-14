@@ -4,7 +4,6 @@ const hands = {
 	scissor: require("url:../../images/tijeras.png"),
 };
 
-export function initHands(){
     class HandMove extends HTMLElement {
         shadow: ShadowRoot;
         constructor() {
@@ -19,8 +18,8 @@ export function initHands(){
            
             style.innerHTML = `
             .hand{
-                height: 128px;
-                width: 56px;
+                height: 138px;
+                width: 66px;
             }
             `;
 
@@ -33,4 +32,3 @@ export function initHands(){
         }
     }
     customElements.define("hand-move", HandMove);
-};
