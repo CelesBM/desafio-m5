@@ -72,7 +72,7 @@ export function initGame(params){
 			padding: 0 150px;
 		}}
 
-	.hand-view:hover{
+	.handview:hover{
 		top: 0px;
 		opacity: 1;
 		display: inherit;
@@ -144,8 +144,6 @@ export function initGame(params){
 		new botGame(botRandomPlay);
 		return botMove;
 	};
-
-	console.log(botMove);
 
 	function playGame(hand) {
 

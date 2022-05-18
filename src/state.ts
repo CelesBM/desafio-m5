@@ -1,5 +1,3 @@
-//mirar código
-
 type Played = "piedra" | "papel" | "tijera";
 
 const state = {

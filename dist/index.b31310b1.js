@@ -616,7 +616,7 @@ function initGame(params) {
         counterEl.textContent = String(counter);
         if (counter < 1) clearInterval(countdown);
     }, 1000);
-    style.innerHTML = `\n    .container{\n		height: 100vh;\n		display: flex;\n		flex-direction: column;\n		justify-content: space-between;\n		align-items: center;\n		overflow-y: hidden;\n    }\n\n    .bot-hands{\n	   display: none;\n	   transform: rotate(180deg);\n	   position: relative;\n	   top: -20px;\n    }\n\n    .countdown{\n		font-family: 'Luckiest Guy', cursive;  \n		font-size: 150px;\n		margin-top: 150px;\n    }\n\n	@media (min-width: 769px) {\n		.countdown{\n			font-size: 250px;\n		}}\n\n    .container-hands{\n		display: flex;\n		position: relative;\n		top: 20px;\n    }\n\n	.bot-paper, .bot-rock, .bot-scissor{\n		padding: 0px 25px;	\n	}\n\n	@media (min-width: 769px) {\n		.bot-paper, .bot-rock, .bot-scissor{\n			padding: 0 150px;\n		}}\n\n    .handview{\n	    padding: 0px 25px;\n		opacity: 0.5;\n    }\n\n	@media (min-width: 769px) {\n		.handview{\n			padding: 0 150px;\n		}}\n\n	.hand-view:hover{\n		top: 0px;\n		opacity: 1;\n		display: inherit;\n		transform: translateY(-30px);\n		transition: all 0.5s;\n	  }\n\n	  .selected {\n		position: absolut;\n		opacity: 1;\n	  }\n    `;
+    style.innerHTML = `\n    .container{\n		height: 100vh;\n		display: flex;\n		flex-direction: column;\n		justify-content: space-between;\n		align-items: center;\n		overflow-y: hidden;\n    }\n\n    .bot-hands{\n	   display: none;\n	   transform: rotate(180deg);\n	   position: relative;\n	   top: -20px;\n    }\n\n    .countdown{\n		font-family: 'Luckiest Guy', cursive;  \n		font-size: 150px;\n		margin-top: 150px;\n    }\n\n	@media (min-width: 769px) {\n		.countdown{\n			font-size: 250px;\n		}}\n\n    .container-hands{\n		display: flex;\n		position: relative;\n		top: 20px;\n    }\n\n	.bot-paper, .bot-rock, .bot-scissor{\n		padding: 0px 25px;	\n	}\n\n	@media (min-width: 769px) {\n		.bot-paper, .bot-rock, .bot-scissor{\n			padding: 0 150px;\n		}}\n\n    .handview{\n	    padding: 0px 25px;\n		opacity: 0.5;\n    }\n\n	@media (min-width: 769px) {\n		.handview{\n			padding: 0 150px;\n		}}\n\n	.handview:hover{\n		top: 0px;\n		opacity: 1;\n		display: inherit;\n		transform: translateY(-30px);\n		transition: all 0.5s;\n	  }\n\n	  .selected {\n		position: absolut;\n		opacity: 1;\n	  }\n    `;
     div.innerHTML = `\n	<div class="container">\n\n    <div class="bot-hands">\n    	<hand-move hand="paper" class="bot-paper"></hand-move>\n   		<hand-move hand="rock" class="bot-rock"></hand-move>\n    	<hand-move hand="scissor" class="bot-scissor"></hand-move>\n    </div>\n\n	<div>\n    	<div class="countdown">${counter}</div>\n	</div>\n\n    <div class="container-hands">\n		<hand-move hand="paper" class="handview paper"></hand-move>\n   		<hand-move hand="rock" class="handview rock"></hand-move>\n    	<hand-move hand="scissor" class="handview scissor"></hand-move>\n    </div>\n\n    </div>\n    `;
     const countdownEl = div.querySelector(".countdown");
     const botHandsEl = div.querySelector(".bot-hands");
@@ -646,7 +646,6 @@ function initGame(params) {
         new botGame(botRandomPlay);
         return botMove;
     };
-    console.log(botMove);
     function playGame(hand) {
         if (hand == "rock") {
             paperEl.style.display = "none";
@@ -804,16 +803,22 @@ function initResults(params) {
     const style = document.createElement("style");
     var myScore = _state.state.data.history.myScore;
     var botScore = _state.state.data.history.botScore;
-    style.innerHTML = `\n  `;
-    div.innerHTML = `\n  <div class="container">\n\n    <div class="win">\n      <img class="win-img" src=${results.win}></img>\n    </div>\n\n    <div class="lose">\n      <img class="lose-img" src=${results.lose}></img>\n    </div>\n\n    <div class="tie">\n      <img class="tie-img" src=${results.tie}></img>\n    </div>\n\n    <div class="score">\n      <h2 class="score-title">Score</h2>\n      <h3 class="score-participant">Vos: ${myScore}</h3>\n      <h3 class="score-participant">Máquina: ${botScore}</h3>\n    </div>\n\n    <div class="go-back">\n      <button-start class="go-back-button">Volver a jugar</button-start>\n    </div>\n\n  </div>\n  `;
+    style.innerHTML = `\n  .container{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n\n  .win{\n    display: none;\n    padding: 20px;\n  }\n  .lose{\n    display: none;\n    padding: 20px;\n  }\n\n  .tie{\n    display: none;\n    padding: 20px;\n  }\n\n  .score{\n    border: solid 10px;\n    background-color: white;\n  }\n\n  .score-title{\n    font-family: 'Luckiest Guy', cursive;  \n		font-size: 40px;\n    margin: 5px;\n    padding: 5px 80px;\n    text-align: center;\n  }\n  \n  .score-participant{\n    font-family: 'Luckiest Guy', cursive;  \n		font-size: 30px;\n    margin: 5px;\n    padding: 5px 10px;\n    text-align: end;\n  }\n\n  .go-back{\n    margin-top: 20px;\n  }\n\n  .go-back-button{\n    margin-left: -11px\n  }\n  `;
+    div.innerHTML = `\n  <div class="container">\n\n    <div class="win">\n      <img class="win-img" src=${results.win} width= 350px height= 350px></img>\n    </div>\n\n    <div class="lose">\n      <img class="lose-img" src=${results.lose} width= 350px height= 350px></img>\n    </div>\n\n    <div class="tie">\n      <img class="tie-img" src=${results.tie} width= 300px height= 300px></img>\n    </div>\n\n    <div class="score">\n      <h2 class="score-title">Score</h2>\n      <h3 class="score-participant">Vos: ${myScore}</h3>\n      <h3 class="score-participant">Máquina: ${botScore}</h3>\n    </div>\n\n    <div class="go-back">\n      <button-start class="go-back-button">Volver a jugar</button-start>\n    </div>\n\n  </div>\n  `;
+    const currentGame = _state.state.getState().currentGame;
+    const myPlay = currentGame.myPlay;
+    const botPlay = currentGame.botPlay;
+    const whoWins = _state.state.whoWins(myPlay, botPlay);
+    const win = div.querySelector(".win");
+    const lose = div.querySelector(".lose");
+    const tie = div.querySelector(".tie");
+    if (whoWins == "win") win.style.display = "inherit";
+    else if (whoWins == "lose") lose.style.display = "inherit";
+    else if (whoWins == "tie") tie.style.display = "inherit";
     const goBack = div.querySelector(".go-back");
-    const goStart = div.querySelector(".go-start");
     goBack.addEventListener("click", ()=>{
         params.goTo("/game/");
         location.reload();
-    });
-    goStart.addEventListener("click", ()=>{
-        params.goTo("/welcome/");
     });
     div.appendChild(style);
     return div;
