@@ -79,6 +79,9 @@ const state = {
 		const loseScissor: boolean = myPlay == "tijera" && botPlay == "piedra";
 		const lose = [loseRock, losePaper, loseScissor].includes(true);
 
+		console.log("MYMOVE", myPlay)
+		console.log("BOTMOVE", botPlay)
+
 		if (win == true){
 			return "win";
 		} else if(lose == true){
@@ -86,6 +89,8 @@ const state = {
 		} else{
 			return "tie";
 		}
+
+		
 	},
 
 	setMove(move: Played){

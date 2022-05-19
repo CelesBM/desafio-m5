@@ -759,6 +759,8 @@ const state = {
             losePaper,
             loseScissor
         ].includes(true);
+        console.log("MYMOVE", myPlay);
+        console.log("BOTMOVE", botPlay);
         if (win == true) return "win";
         else if (lose == true) return "lose";
         else return "tie";
@@ -803,6 +805,7 @@ function initResults(params) {
     if (whoWins == "win") win.style.display = "inherit";
     else if (whoWins == "lose") lose.style.display = "inherit";
     else if (whoWins == "tie") tie.style.display = "inherit";
+    console.log("ESTE ES EL GANADOR", win);
     const goBack = div.querySelector(".go-back");
     goBack.addEventListener("click", ()=>{
         params.goTo("/game/");
