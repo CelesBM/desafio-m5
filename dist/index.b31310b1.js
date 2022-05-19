@@ -618,11 +618,6 @@ function initGame(params) {
     }, 1000);
     style.innerHTML = `\n    .container{\n		height: 100vh;\n		display: flex;\n		flex-direction: column;\n		justify-content: space-between;\n		align-items: center;\n		overflow-y: hidden;\n    }\n\n    .bot-hands{\n	   display: none;\n	   transform: rotate(180deg);\n	   position: relative;\n	   top: -20px;\n    }\n\n    .countdown{\n		font-family: 'Luckiest Guy', cursive;  \n		font-size: 150px;\n		margin-top: 150px;\n    }\n\n	@media (min-width: 769px) {\n		.countdown{\n			font-size: 250px;\n		}}\n\n    .container-hands{\n		display: flex;\n		position: relative;\n		top: 20px;\n    }\n\n	.bot-paper, .bot-rock, .bot-scissor{\n		padding: 0px 25px;	\n	}\n\n	@media (min-width: 769px) {\n		.bot-paper, .bot-rock, .bot-scissor{\n			padding: 0 150px;\n		}}\n\n    .handview{\n	    padding: 0px 25px;\n		opacity: 0.5;\n    }\n\n	@media (min-width: 769px) {\n		.handview{\n			padding: 0 150px;\n		}}\n\n	.handview:hover{\n		top: 0px;\n		opacity: 1;\n		display: inherit;\n		transform: translateY(-30px);\n		transition: all 0.5s;\n	  }\n\n	  .selected {\n		position: absolut;\n		opacity: 1;\n	  }\n    `;
     div.innerHTML = `\n	<div class="container">\n\n    <div class="bot-hands">\n    	<hand-move hand="paper" class="bot-paper"></hand-move>\n   		<hand-move hand="rock" class="bot-rock"></hand-move>\n    	<hand-move hand="scissor" class="bot-scissor"></hand-move>\n    </div>\n\n	<div>\n    	<div class="countdown">${counter}</div>\n	</div>\n\n    <div class="container-hands">\n		<hand-move hand="paper" class="handview paper"></hand-move>\n   		<hand-move hand="rock" class="handview rock"></hand-move>\n    	<hand-move hand="scissor" class="handview scissor"></hand-move>\n    </div>\n\n    </div>\n    `;
-    const countdownEl = div.querySelector(".countdown");
-    const botHandsEl = div.querySelector(".bot-hands");
-    const botPaper = div.querySelector(".bot-paper");
-    const botRock = div.querySelector(".bot-rock");
-    const botScissor = div.querySelector(".bot-scissor");
     const handsCont = div.querySelector(".container-hands");
     const paperEl = div.querySelector(".paper");
     const rockEl = div.querySelector(".rock");
@@ -633,6 +628,12 @@ function initGame(params) {
         else if (params1 == "papel") botHandsStyles.innerHTML = `\n			.bot-hands {display: inherit;}\n			.bot-rock {display: none;}\n			.bot-paper {display: inherit;}\n			.bot-scissor {display: none;}\n			.countdown {display: none;}\n			`;
         else if (params1 == "tijera") botHandsStyles.innerHTML = `\n			.bot-hands {display: inherit;}\n			.bot-rock {display: none;}\n			.bot-paper {display: none;}\n			.bot-scissor {display: inherit;}\n			.countdown {display: none;}\n			`;
     }
+    const currentState = _state.state.getState();
+    setTimeout(()=>{
+        botGame(botRandomPlay);
+        console.log(currentState.currentGame);
+        currentState.currentGame.botPlay = `${botRandomPlay}`;
+    }, 2000);
     function playGame(hand) {
         if (hand == "rock") {
             paperEl.style.display = "none";
@@ -677,7 +678,6 @@ function initGame(params) {
             }, 1000);
         }
     });
-    const currentState = _state.state.getState().currentGame;
     setTimeout(()=>{
         if (currentState.myPlay == "") params.goTo("/instructions/");
         else params.goTo("/results/");
@@ -805,7 +805,6 @@ function initResults(params) {
     if (whoWins == "win") win.style.display = "inherit";
     else if (whoWins == "lose") lose.style.display = "inherit";
     else if (whoWins == "tie") tie.style.display = "inherit";
-    console.log("ESTE ES EL GANADOR", win);
     const goBack = div.querySelector(".go-back");
     goBack.addEventListener("click", ()=>{
         params.goTo("/game/");

@@ -108,13 +108,6 @@ export function initGame(params){
     </div>
     `;
 
-	const countdownEl: any = div.querySelector(".countdown");
-	const botHandsEl: any = div.querySelector(".bot-hands");
-
-	const botPaper: any = div.querySelector(".bot-paper");
-	const botRock: any = div.querySelector(".bot-rock");
-	const botScissor: any = div.querySelector(".bot-scissor");
-
 	const handsCont: any = div.querySelector(".container-hands");
 	
 	const paperEl: any = div.querySelector(".paper");
@@ -153,6 +146,15 @@ export function initGame(params){
 			`;
 		}
 	}
+
+	const currentState = state.getState();
+
+	setTimeout(() =>{
+		botGame(botRandomPlay);
+		console.log(currentState.currentGame);
+		currentState.currentGame.botPlay = `${botRandomPlay}`;
+	}, 2000); 
+	
 
 	function playGame(hand) {
 
@@ -210,8 +212,6 @@ export function initGame(params){
 		});
 	}
 
-	const currentState = state.getState().currentGame;
-
 	setTimeout(() => {	
 		if (currentState.myPlay == "") {
 			params.goTo("/instructions/");
@@ -223,5 +223,6 @@ export function initGame(params){
 
     div.appendChild(style);
 	div.appendChild(botHandsStyles);
-    return div;
+	return div;
+    
 }

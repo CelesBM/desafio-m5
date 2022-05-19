@@ -113,15 +113,12 @@ export function initResults(params){
 		tie.style.display = "inherit";
 	}
 
-  console.log("ESTE ES EL GANADOR", win)
-
 	const goBack = div.querySelector(".go-back");
 
 	goBack.addEventListener("click", () => {
 		params.goTo("/game/");
 		location.reload();
 	});
-
 
 	div.appendChild(style);
 	return div;

@@ -89,8 +89,6 @@ const state = {
 		} else{
 			return "tie";
 		}
-
-		
 	},
 
 	setMove(move: Played){
