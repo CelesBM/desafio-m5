@@ -38,18 +38,13 @@ const state = {
 		this.listeners.push(callback);
 	},
 
-	setMove(move: Played){
-		const currentState = this.getState();
-		currentState.currentGame.myPlay = move;
-		this.setScore();
-	},
-
 	setScore(){
 		const currentState = this.getState();
 
-		const myPlay = currentState.currentGame.myPlay;
-		const botPlay = currentState.currentGame.botPlay;
+		const myPlay = this.getState().currentGame.myPlay;
+		const botPlay = this.getState().currentGame.botPlay;
 		const currentWhoWins = this.whoWins(myPlay, botPlay);
+
 		const myScore = currentState.history.myScore;
 		const botScore = currentState.history.botScore;
 
@@ -71,6 +66,7 @@ const state = {
 			});
 		}
 	},
+
 	whoWins(myPlay: Played, botPlay: Played) {
 		
 		const winRock: boolean = myPlay == "piedra" && botPlay == "tijera";
@@ -90,6 +86,12 @@ const state = {
 		} else{
 			return "tie";
 		}
+	},
+
+	setMove(move: Played){
+		const currentState = this.getState();
+		currentState.currentGame.myPlay = move;
+		this.setScore();
 	},
 
 	savedData(){

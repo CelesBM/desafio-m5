@@ -121,29 +121,38 @@ export function initGame(params){
 	const rockEl: any = div.querySelector(".rock");
 	const scissorEl: any = div.querySelector(".scissor");
 
-	function botGame(params) {
+	const botHandsStyles = document.createElement("style");
 
-		if (params == "piedra") {
-			botRock.style.display = "inherit";
-			botHandsEl.style.display = "inherit";
-			countdownEl.style.display = "none";
-		} 
-		else if (params == "papel") {
-			botPaper.style.display = "inherit";
-			botHandsEl.style.display = "inherit";
-			countdownEl.style.display = "none";
-		} 
-		else if (params == "tijera") {
-			botScissor.style.display = " inherit";
-			botHandsEl.style.display = "inherit";
-			countdownEl.style.display = "none";
+	function botGame(params){
+
+		if(params == "piedra"){
+			botHandsStyles.innerHTML = `
+			.bot-hands {display: inherit;}
+			.bot-rock {display: inherit;}
+			.bot-paper {display: none;}
+			.bot-scissor {display: none;}
+			.countdown {display: none;}
+			`;
+		}
+		else if(params == "papel"){
+			botHandsStyles.innerHTML = `
+			.bot-hands {display: inherit;}
+			.bot-rock {display: none;}
+			.bot-paper {display: inherit;}
+			.bot-scissor {display: none;}
+			.countdown {display: none;}
+			`;
+		}
+		else if(params == "tijera"){
+			botHandsStyles.innerHTML = `
+			.bot-hands {display: inherit;}
+			.bot-rock {display: none;}
+			.bot-paper {display: none;}
+			.bot-scissor {display: inherit;}
+			.countdown {display: none;}
+			`;
 		}
 	}
-	
-	const botMove = () => {
-		new botGame(botRandomPlay);
-		return botMove;
-	};
 
 	function playGame(hand) {
 
@@ -213,5 +222,6 @@ export function initGame(params){
 	}, 5000);
 
     div.appendChild(style);
+	div.appendChild(botHandsStyles);
     return div;
 }

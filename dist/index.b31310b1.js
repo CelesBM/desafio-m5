@@ -627,25 +627,12 @@ function initGame(params) {
     const paperEl = div.querySelector(".paper");
     const rockEl = div.querySelector(".rock");
     const scissorEl = div.querySelector(".scissor");
+    const botHandsStyles = document.createElement("style");
     function botGame(params1) {
-        if (params1 == "piedra") {
-            botRock.style.display = "inherit";
-            botHandsEl.style.display = "inherit";
-            countdownEl.style.display = "none";
-        } else if (params1 == "papel") {
-            botPaper.style.display = "inherit";
-            botHandsEl.style.display = "inherit";
-            countdownEl.style.display = "none";
-        } else if (params1 == "tijera") {
-            botScissor.style.display = " inherit";
-            botHandsEl.style.display = "inherit";
-            countdownEl.style.display = "none";
-        }
+        if (params1 == "piedra") botHandsStyles.innerHTML = `\n			.bot-hands {display: inherit;}\n			.bot-rock {display: inherit;}\n			.bot-paper {display: none;}\n			.bot-scissor {display: none;}\n			.countdown {display: none;}\n			`;
+        else if (params1 == "papel") botHandsStyles.innerHTML = `\n			.bot-hands {display: inherit;}\n			.bot-rock {display: none;}\n			.bot-paper {display: inherit;}\n			.bot-scissor {display: none;}\n			.countdown {display: none;}\n			`;
+        else if (params1 == "tijera") botHandsStyles.innerHTML = `\n			.bot-hands {display: inherit;}\n			.bot-rock {display: none;}\n			.bot-paper {display: none;}\n			.bot-scissor {display: inherit;}\n			.countdown {display: none;}\n			`;
     }
-    const botMove = ()=>{
-        new botGame(botRandomPlay);
-        return botMove;
-    };
     function playGame(hand) {
         if (hand == "rock") {
             paperEl.style.display = "none";
@@ -696,6 +683,7 @@ function initGame(params) {
         else params.goTo("/results/");
     }, 5000);
     div.appendChild(style);
+    div.appendChild(botHandsStyles);
     return div;
 }
 
@@ -732,15 +720,10 @@ const state = {
     subscribe (callback) {
         this.listeners.push(callback);
     },
-    setMove (move) {
-        const currentState = this.getState();
-        currentState.currentGame.myPlay = move;
-        this.setScore();
-    },
     setScore () {
         const currentState = this.getState();
-        const myPlay = currentState.currentGame.myPlay;
-        const botPlay = currentState.currentGame.botPlay;
+        const myPlay = this.getState().currentGame.myPlay;
+        const botPlay = this.getState().currentGame.botPlay;
         const currentWhoWins = this.whoWins(myPlay, botPlay);
         const myScore = currentState.history.myScore;
         const botScore = currentState.history.botScore;
@@ -779,6 +762,11 @@ const state = {
         if (win == true) return "win";
         else if (lose == true) return "lose";
         else return "tie";
+    },
+    setMove (move) {
+        const currentState = this.getState();
+        currentState.currentGame.myPlay = move;
+        this.setScore();
     },
     savedData () {
         const currentHistory = this.getState().history;
