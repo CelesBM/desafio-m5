@@ -95,6 +95,8 @@ export function initResults(params){
   `;
 
   const currentGame = state.getState().currentGame;
+  console.log(myScore);
+  console.log(botScore);
 	
   const myPlay = currentGame.myPlay;
 	const botPlay = currentGame.botPlay;

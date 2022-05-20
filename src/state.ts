@@ -40,7 +40,7 @@ const state = {
 
 	setScore(){
 		const currentState = this.getState();
-
+		
 		const myPlay = this.getState().currentGame.myPlay;
 		const botPlay = this.getState().currentGame.botPlay;
 		const currentWhoWins = this.whoWins(myPlay, botPlay);
