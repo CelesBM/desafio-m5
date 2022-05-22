@@ -789,6 +789,9 @@ const results = {
     tie: require("url:../../images/empate.png")
 };
 function initResults(params) {
+    const currentState = _state.state.getState();
+    const whoWins = _state.state.whoWins(currentState.currentGame.myPlay, currentState.currentGame.botPlay);
+    _state.state.setScore();
     const div = document.createElement("div");
     const style = document.createElement("style");
     var myScore = _state.state.data.history.myScore;
@@ -800,7 +803,6 @@ function initResults(params) {
     console.log(botScore);
     const myPlay = currentGame.myPlay;
     const botPlay = currentGame.botPlay;
-    const whoWins = _state.state.whoWins(myPlay, botPlay);
     const win = div.querySelector(".win");
     const lose = div.querySelector(".lose");
     const tie = div.querySelector(".tie");

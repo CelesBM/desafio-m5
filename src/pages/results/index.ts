@@ -8,7 +8,10 @@ const results = {
 };
 
 export function initResults(params){
-  
+
+  const currentState = state.getState();
+  const whoWins = state.whoWins(currentState.currentGame.myPlay, currentState.currentGame.botPlay);
+  state.setScore();
   const div = document.createElement("div");
 	const style = document.createElement("style");
 
@@ -100,9 +103,7 @@ export function initResults(params){
 	
   const myPlay = currentGame.myPlay;
 	const botPlay = currentGame.botPlay;
-	
-  const whoWins = state.whoWins(myPlay, botPlay);
-	
+
   const win: any = div.querySelector(".win");
 	const lose: any = div.querySelector(".lose");
 	const tie: any = div.querySelector(".tie");
