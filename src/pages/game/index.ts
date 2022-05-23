@@ -213,7 +213,7 @@ export function initGame(params){
 	}
 
 	setTimeout(() => {	
-		if (currentState.myPlay == "") {
+		if (currentState.currentGame.myPlay == "") {
 			params.goTo("/instructions/");
 		} 
 		else {

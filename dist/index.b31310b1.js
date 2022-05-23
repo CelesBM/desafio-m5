@@ -679,7 +679,7 @@ function initGame(params) {
         }
     });
     setTimeout(()=>{
-        if (currentState.myPlay == "") params.goTo("/instructions/");
+        if (currentState.currentGame.myPlay == "") params.goTo("/instructions/");
         else params.goTo("/results/");
     }, 5000);
     div.appendChild(style);
