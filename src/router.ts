@@ -9,19 +9,19 @@ const routes = [
         component: initWelcomePage,
     },
     {
-        path: /\/welcome/,
+        path: /\/desafio-m5\/welcome/,
         component: initWelcomePage,
     },
     {
-        path: /\/instructions/,
+        path: /\/desafio-m5\/instructions/,
         component: initInstructionsPage,
     },
     {
-        path: /\/game/,
+        path: /\/desafio-m5\/game/,
         component: initGame,
     },
     {
-        path: /\/results/,
+        path: /\/desafio-m5\/results/,
         component: initResults,
     },
 
@@ -59,5 +59,13 @@ export function initRouter(container: Element){
         }
     }
 
-    handleRoute(location.pathname);
+    if (location.host.includes("github.io") || "/") {
+        goTo("/desafio-m5/welcome");
+    } else {
+        handleRoute(location.pathname);
+    }
+
+    window.onpopstate = function() {
+        handleRoute(location.pathname);
+    };
 }

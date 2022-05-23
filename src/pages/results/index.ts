@@ -119,7 +119,7 @@ export function initResults(params){
 	const goBack = div.querySelector(".go-back");
 
 	goBack.addEventListener("click", () => {
-		params.goTo("/game/");
+		params.goTo("/desafio-m5/game/");
 		location.reload();
 	});
 

@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"8uBhv":[function(require,module,exports) {
+})({"hXstR":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -482,19 +482,19 @@ const routes = [
         component: _welcome.initWelcomePage
     },
     {
-        path: /\/welcome/,
+        path: /\/desafio-m5\/welcome/,
         component: _welcome.initWelcomePage
     },
     {
-        path: /\/instructions/,
+        path: /\/desafio-m5\/instructions/,
         component: _instructions.initInstructionsPage
     },
     {
-        path: /\/game/,
+        path: /\/desafio-m5\/game/,
         component: _game.initGame
     },
     {
-        path: /\/results/,
+        path: /\/desafio-m5\/results/,
         component: _results.initResults
     }, 
 ];
@@ -519,10 +519,14 @@ function initRouter(container) {
             container.appendChild(el);
         }
     }
-    handleRoute(location.pathname);
+    location.host.includes("github.io") || "/";
+    goTo("/desafio-m5/welcome");
+    window.onpopstate = function() {
+        handleRoute(location.pathname);
+    };
 }
 
-},{"./pages/welcome":"bFh5y","./pages/instructions":"iaM8p","./pages/game":"d7f6n","./pages/results":"8GXDd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"bFh5y":[function(require,module,exports) {
+},{"./pages/welcome":"bFh5y","./pages/instructions":"iaM8p","./pages/game":"d7f6n","./pages/results":"8GXDd","@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"bFh5y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initWelcomePage", ()=>initWelcomePage
@@ -535,13 +539,13 @@ function initWelcomePage(params) {
     div.innerHTML = `\n    <div class="container">\n\n    <h1 class="title">Piedra Papel ó Tijera</h1>\n    <button-start class="button">Empezar</button-start>\n    \n    <div class="container-hands">\n\n    <div class="hand"><hand-move hand="paper"></hand-move></div>\n    <div class="hand"><hand-move hand="rock"></hand-move></div>\n    <div class="hand"><hand-move hand="scissor"></hand-move></div>\n    \n    </div>\n\n    </div>\n    `;
     const buttonEl = div.querySelector(".button");
     buttonEl.addEventListener('click', ()=>{
-        params.goTo("/instructions");
+        params.goTo("/desafio-m5/instructions");
     });
     div.appendChild(style);
     return div;
 }
 
-},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"JacNc":[function(require,module,exports) {
+},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"g9a4E":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -586,13 +590,13 @@ function initInstructionsPage(params) {
     div.innerHTML = `\n    <div class="container">\n\n    <p class="instructions">Presioná jugar y elegí: piedra, papel o tijera antes de que pasen los 3 segundos.</p>\n    <button-start class="button">¡Jugar!</button-start>\n\n    <div class="container-hands">\n\n    <div class="hand"><hand-move hand="paper"></hand-move></div>\n    <div class="hand"><hand-move hand="rock"></hand-move></div>\n    <div class="hand"><hand-move hand="scissor"></hand-move></div>\n\n    </div>\n\n    </div>\n    `;
     const buttonEl = div.querySelector(".button");
     buttonEl.addEventListener('click', ()=>{
-        params.goTo("/game");
+        params.goTo("/desafio-m5/game");
     });
     div.appendChild(style);
     return div;
 }
 
-},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"d7f6n":[function(require,module,exports) {
+},{"../../router":"b2iia","@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"d7f6n":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initGame", ()=>initGame
@@ -679,15 +683,15 @@ function initGame(params) {
         }
     });
     setTimeout(()=>{
-        if (currentState.currentGame.myPlay == "") params.goTo("/instructions/");
-        else params.goTo("/results/");
+        if (currentState.currentGame.myPlay == "") params.goTo("/desafio-m5/instructions/");
+        else params.goTo("/desafio-m5/results/");
     }, 5000);
     div.appendChild(style);
     div.appendChild(botHandsStyles);
     return div;
 }
 
-},{"../../router":"b2iia","../../state":"28XHA","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"28XHA":[function(require,module,exports) {
+},{"../../router":"b2iia","../../state":"28XHA","@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"28XHA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state
@@ -776,7 +780,7 @@ const state = {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"8GXDd":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"8GXDd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initResults", ()=>initResults
@@ -811,17 +815,17 @@ function initResults(params) {
     else if (whoWins == "tie") tie.style.display = "inherit";
     const goBack = div.querySelector(".go-back");
     goBack.addEventListener("click", ()=>{
-        params.goTo("/game/");
+        params.goTo("/desafio-m5/game/");
         location.reload();
     });
     div.appendChild(style);
     return div;
 }
 
-},{"../../router":"b2iia","../../state":"28XHA","url:../../images/ganaste.png":"bRYxE","url:../../images/perdiste.png":"l5pY4","url:../../images/empate.png":"2LlX9","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"bRYxE":[function(require,module,exports) {
+},{"../../router":"b2iia","../../state":"28XHA","url:../../images/ganaste.png":"6x3Bm","url:../../images/perdiste.png":"2ypeL","url:../../images/empate.png":"i5gIa","@parcel/transformer-js/src/esmodule-helpers.js":"g9a4E"}],"6x3Bm":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "ganaste.8752fa2a.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
+},{"./helpers/bundle-url":"dARwY"}],"dARwY":[function(require,module,exports) {
 "use strict";
 var bundleURL = {
 };
@@ -856,13 +860,13 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"l5pY4":[function(require,module,exports) {
+},{}],"2ypeL":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "perdiste.711bca37.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"2LlX9":[function(require,module,exports) {
+},{"./helpers/bundle-url":"dARwY"}],"i5gIa":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "empate.05dba055.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"9F0Ma":[function(require,module,exports) {
+},{"./helpers/bundle-url":"dARwY"}],"9F0Ma":[function(require,module,exports) {
 class ButtonStart extends HTMLElement {
     constructor(){
         super();
@@ -909,15 +913,15 @@ class HandMove extends HTMLElement {
 }
 customElements.define("hand-move", HandMove);
 
-},{"url:../../images/piedra.png":"jQlP3","url:../../images/papel.png":"8lgLG","url:../../images/tijeras.png":"klX5l"}],"jQlP3":[function(require,module,exports) {
+},{"url:../../images/piedra.png":"16PGs","url:../../images/papel.png":"03CJl","url:../../images/tijeras.png":"boEdY"}],"16PGs":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra.a3b6d156.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"8lgLG":[function(require,module,exports) {
+},{"./helpers/bundle-url":"dARwY"}],"03CJl":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "papel.135c8552.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"klX5l":[function(require,module,exports) {
+},{"./helpers/bundle-url":"dARwY"}],"boEdY":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijeras.599651f3.png";
 
-},{"./helpers/bundle-url":"8YnfL"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire9acc")
+},{"./helpers/bundle-url":"dARwY"}]},["hXstR","4aleK"], "4aleK", "parcelRequire9acc")
 
 //# sourceMappingURL=index.b31310b1.js.map
