@@ -58,8 +58,6 @@ const state = {
 			currentState.history.botScore ++;
 		}
 		this.setState(currentState);
-
-
 	},
 	
 	whoWins(myPlay: Played, botPlay: Played) {
@@ -73,9 +71,6 @@ const state = {
 		const losePaper: boolean = myPlay == "papel" && botPlay == "tijera";
 		const loseScissor: boolean = myPlay == "tijera" && botPlay == "piedra";
 		const lose = [loseRock, losePaper, loseScissor].includes(true);
-
-		console.log("MYMOVE", myPlay)
-		console.log("BOTMOVE", botPlay)
 
 		if (win == true){
 			return "win";
