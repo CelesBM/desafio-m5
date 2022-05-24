@@ -16,10 +16,13 @@ const state = {
 
 	getStorage(){
 		const localData = JSON.parse(localStorage.getItem("data"));
-		if(localStorage.getItem("data")){
-			return(this.data.history = localData);
+	
+		if(localData){
+			console.log(localData);
+			this.setState(localData);
+		} else{
+			return;
 		}
-		console.log(localData);
 	},
 
 	getState(){

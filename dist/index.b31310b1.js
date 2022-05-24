@@ -476,42 +476,36 @@ var _welcome = require("./pages/welcome");
 var _instructions = require("./pages/instructions");
 var _game = require("./pages/game");
 var _results = require("./pages/results");
-const routes = [
-    {
-        path: /\//,
-        component: _welcome.initWelcomePage
-    },
-    {
-        path: /\/desafio-m5\/welcome/,
-        component: _welcome.initWelcomePage
-    },
-    {
-        path: /\/desafio-m5\/instructions/,
-        component: _instructions.initInstructionsPage
-    },
-    {
-        path: /\/desafio-m5\/game/,
-        component: _game.initGame
-    },
-    {
-        path: /\/desafio-m5\/results/,
-        component: _results.initResults
-    }, 
-];
-const BASE_PATH = "/desafio-m5";
-function isGithubPages() {
-    return location.host.includes("github.io");
-}
 function initRouter(container) {
+    const routes = [
+        {
+            path: /\/desafio-m5/,
+            component: _welcome.initWelcomePage
+        },
+        {
+            path: /\/desafio-m5\/welcome/,
+            component: _welcome.initWelcomePage
+        },
+        {
+            path: /\/desafio-m5\/instructions/,
+            component: _instructions.initInstructionsPage
+        },
+        {
+            path: /\/desafio-m5\/game/,
+            component: _game.initGame
+        },
+        {
+            path: /\/desafio-m5\/results/,
+            component: _results.initResults
+        }, 
+    ];
     function goTo(path) {
-        const completePath = isGithubPages() ? BASE_PATH + path : path;
         history.pushState({
-        }, "", completePath);
-        handleRoute(completePath);
+        }, "", path);
+        handleRoute(path);
     }
     function handleRoute(route) {
-        const newRoute = isGithubPages() ? route.replace(BASE_PATH, "") : route;
-        for (const r of routes)if (r.path.test(newRoute)) {
+        for (const r of routes)if (r.path.test(route)) {
             const el = r.component({
                 goTo: goTo
             });
@@ -710,8 +704,10 @@ const state = {
     listeners: [],
     getStorage () {
         const localData = JSON.parse(localStorage.getItem("data"));
-        if (localStorage.getItem("data")) return this.data.history = localData;
-        console.log(localData);
+        if (localData) {
+            console.log(localData);
+            this.setState(localData);
+        } else return;
     },
     getState () {
         return this.data;
@@ -816,7 +812,6 @@ function initResults(params) {
     const goBack = div.querySelector(".go-back");
     goBack.addEventListener("click", ()=>{
         params.goTo("/desafio-m5/game/");
-        location.reload();
     });
     div.appendChild(style);
     return div;

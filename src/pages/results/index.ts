@@ -120,7 +120,6 @@ export function initResults(params){
 
 	goBack.addEventListener("click", () => {
 		params.goTo("/desafio-m5/game/");
-		location.reload();
 	});
 
 	div.appendChild(style);
