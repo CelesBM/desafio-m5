@@ -11,7 +11,7 @@ export function initResults(params){
 
   const currentState = state.getState();
   const whoWins = state.whoWins(currentState.currentGame.myPlay, currentState.currentGame.botPlay);
-  state.setScore();
+  state.setScore(whoWins);
   const div = document.createElement("div");
 	const style = document.createElement("style");
 

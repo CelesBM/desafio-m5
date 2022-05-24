@@ -41,35 +41,17 @@ const state = {
 		this.listeners.push(callback);
 	},
 
-	setScore(){
+	setScore(result){
 		const currentState = this.getState();
-		
-		const myPlay = this.getState().currentGame.myPlay;
-		const botPlay = this.getState().currentGame.botPlay;
-		const currentWhoWins = this.whoWins(myPlay, botPlay);
 
-		const myScore = currentState.history.myScore;
-		const botScore = currentState.history.botScore;
-
-		if(currentWhoWins == "win"){
-			return this.setState({
-				...currentState,
-				history: {
-					myScore: myScore + 1,
-					botScore: botScore,
-				},
-			});
-		} else if(currentWhoWins == "lose"){
-			return this.setState({
-				...currentState,
-				history: {
-					myScore: myScore,
-					botScore: botScore + 1,
-				},
-			});
+		if(result == "win"){
+			currentState.history.myScore ++;
+		} else if (result == "lose"){
+			currentState.history.botScore ++;
 		}
+		this.setState(currentState);
 	},
-
+	
 	whoWins(myPlay: Played, botPlay: Played) {
 		
 		const winRock: boolean = myPlay == "piedra" && botPlay == "tijera";
