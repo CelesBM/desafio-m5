@@ -24,8 +24,8 @@ const hands = {
             `;
 
             div.innerHTML = `
-            <img class="hand" src=${hands[hand]}></img>;
-            `
+            <img class="hand" src=${hands[hand]}></img>
+            `;
 
             this.shadow.appendChild(style);
             this.shadow.appendChild(div)

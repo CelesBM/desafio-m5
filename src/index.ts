@@ -1,4 +1,5 @@
 import { initRouter } from "./router";
+import { state } from "./state";
 
 import "./pages/welcome";
 import "./pages/instructions";
@@ -11,4 +12,5 @@ import "./components/move/hands";
 (function () {
     const root = document.querySelector(".root");
     initRouter(root);
+    state.getStorage();
   })();
