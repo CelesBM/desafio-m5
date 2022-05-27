@@ -43,22 +43,24 @@ const state = {
 
 	setScore(result){
 
-		console.log(result);
-	
-
 		const currentState =
 		 this.getState();
-
-		 console.log(currentState.history.myScore);
-	console.log(currentState.history.botScore);
 
 		if(result == "win"){
 			currentState.history.myScore ++;
 		} else if (result == "lose"){
 			currentState.history.botScore ++;
 		}
-		this.setState(currentState);
+		
+	this.setState(currentState);
 	},
+
+	restartGame() {
+		const currentState = this.getState();
+		currentState.currentGame.myPlay = "";
+		currentState.currentGame.botPlay = "";
+		this.setState(currentState);
+	  },
 	
 	whoWins(myPlay: Played, botPlay: Played) {
 		
@@ -91,6 +93,7 @@ const state = {
 		const currentHistory = this.getState();
 		localStorage.setItem("data", JSON.stringify(currentHistory));
 	},
+	
 };
 
 export { state };

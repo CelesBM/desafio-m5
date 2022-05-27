@@ -1,12 +1,12 @@
 import "../../router";
 import { state } from "../../state";
 
-const options = ["piedra", "papel", "tijera"];
-const randomOption = Math.floor(Math.random() * options.length);
-var botRandomPlay = options[randomOption];
-
 export function initGame(params){
-   
+
+	const options = ["piedra", "papel", "tijera"];
+	const randomOption = Math.floor(Math.random() * options.length);
+	var botRandomPlay = options[randomOption];
+
     const div = document.createElement("div");
     const style = document.createElement("style");
 	var counter = 3;
@@ -15,7 +15,6 @@ export function initGame(params){
 		counter --;
 		const counterEl = div.querySelector(".countdown");
 		counterEl.textContent = String(counter);
-
 		if(counter < 1) { clearInterval(countdown); }
 	}, 1000);
 
@@ -147,15 +146,14 @@ export function initGame(params){
 		}
 	}
 
-	const currentState = state.getState();
-
 	setTimeout(() =>{
 		botGame(botRandomPlay);
-		console.log(currentState.currentGame);
 		currentState.currentGame.botPlay = `${botRandomPlay}`;
-	}, 2000); 
-	
+		console.log(currentState.currentGame);
+	}, 4000); 
 
+	const currentState = state.getState();
+	
 	function playGame(hand) {
 
 		if (hand == "rock") {
@@ -164,7 +162,7 @@ export function initGame(params){
 			handsCont.style.justifyContent = "center";
 			rockEl.classList.remove(".handview");
 			rockEl.classList.add("selected");
-			botGame(botRandomPlay);
+			//botGame(botRandomPlay);
 		} 
 		else if (hand == "paper") {
 			rockEl.style.display = "none";
@@ -172,7 +170,7 @@ export function initGame(params){
 			handsCont.style.justifyContent = "center";
 			paperEl.classList.remove(".handview");
 			paperEl.classList.add("selected");
-			botGame(botRandomPlay);
+			//botGame(botRandomPlay);
 		} 
 		else if (hand == "scissor") {
 			paperEl.style.display = "none";
@@ -180,7 +178,7 @@ export function initGame(params){
 			handsCont.style.justifyContent = "center";
 			scissorEl.classList.remove(".handview");
 			scissorEl.classList.add("selected");
-			botGame(botRandomPlay);
+			//botGame(botRandomPlay);
 		}
 	}
 
@@ -189,26 +187,26 @@ export function initGame(params){
 		h.addEventListener("click", () => {
 			
 			const select = h.getAttribute("hand");
-			clearInterval(countdown);
 
 			if (select == "rock") {
 				state.setMove("piedra");
 				setTimeout(() => {
 					playGame("rock");
-				}, 3000);
+				}, 4000);
 			} 
 			else if (select == "paper") {
 				state.setMove("papel");
 				setTimeout(() => {
 					playGame("paper");
-				}, 1000);
+				}, 4000);
 			} 
 			else if (select == "scissor") {
 				state.setMove("tijera");
 				setTimeout(() => {
 					playGame("scissor");
-				}, 1000);
+				}, 4000);
 			}
+
 		});
 	}
 
@@ -224,5 +222,5 @@ export function initGame(params){
     div.appendChild(style);
 	div.appendChild(botHandsStyles);
 	return div;
-    
+
 }

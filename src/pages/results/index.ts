@@ -12,6 +12,7 @@ export function initResults(params){
   const currentState = state.getState();
   const whoWins = state.whoWins(currentState.currentGame.myPlay, currentState.currentGame.botPlay);
   state.setScore(whoWins);
+  state.restartGame();
   const div = document.createElement("div");
 	const style = document.createElement("style");
 
@@ -98,8 +99,6 @@ export function initResults(params){
   `;
 
   const currentGame = state.getState().currentGame;
-  console.log(myScore);
-  console.log(botScore);
 	
   const myPlay = currentGame.myPlay;
 	const botPlay = currentGame.botPlay;
